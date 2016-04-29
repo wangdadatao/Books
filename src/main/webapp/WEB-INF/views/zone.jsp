@@ -1,7 +1,7 @@
-<%@ page import="com.datao.entity.Buy" %>
+<%@ page import="com.datao.pojo.Buy" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.datao.entity.Zone" %>
-<%@ page import="com.datao.entity.Book" %>
+<%@ page import="com.datao.pojo.Zone" %>
+<%@ page import="com.datao.pojo.Book" %>
 <%--
   Created by IntelliJ IDEA.
   User: 海涛
@@ -161,40 +161,7 @@
 </head>
 <body>
 <%--导航--%>
-<div class="wrap-nav navbar-fixed-top">
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="container-fluid">
-                <!-- 响应式布局-->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">图书馆</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/userhome.do?'">主页 <span class="sr-only">(current)</span></a></li>
-                        <li class="active"><a href="/userzone.do">个人中心</a></li>
-                        <li><a href="/userset.do">设置</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索:作者/书名/出版社">
-                        </div>
-                        <button type="submit" class="btn btn-default">搜索</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<%@include file="public.jsp" %>
 
 <div class="head-img">
     <img class="bg-img" src="/Static/img/zonebg.jpg">
@@ -202,7 +169,8 @@
         <table>
             <tr>
                 <td>
-                    <img src="/gethead.img" class="img-circle" alt="头像">
+                    <img src="http://7xsaoe.com1.z0.glb.clouddn.com/${requestScope.zone.headimg}" class="img-circle"
+                         alt="头像">
                 </td>
                 <td>
                     <h2>${requestScope.zone.petname}</h2>
@@ -228,7 +196,7 @@
                             <th>操作</th>
                         </tr>
                         <%
-                            List<Buy> borrows = (List<Buy>) request.getAttribute("borrows");
+                            List<Buy> buys = (List<Buy>) request.getAttribute("buys");
                             List<Book> books = (List<Book>) request.getAttribute("books");
                             for (int i = 0; i < books.size(); i++) {
                         %>
@@ -242,7 +210,7 @@
                             <td><%=books.get(i).getType()%>
                             </td>
                             <td><a class="a-remove btn" href="javascript:;"
-                                   borrowid="<%=borrows.get(i).getId()%>">移除书籍</a></td>
+                                   borrowid="<%=buys.get(i).getBookid()%>">移除书籍</a></td>
                         </tr>
                         <%
                             }
@@ -261,7 +229,7 @@
             </li>
 
             <%--我的相册--%>
-            <li class="my-photo"><p>我的相册</p>
+            <li id="li-show-photo" class="my-photo"><p>我的相册</p>
                 <div class="show-right div-photo">
                     <div class=" container-fluid">
                         <form action="/upload.do?page=1" class="form-inline" method="post"
@@ -277,7 +245,15 @@
                         <p>我的照片:</p>
                         <hr>
                         <div class="container-fluid " id="div-show-photos">
-
+                            <c:forEach var="p" items="${requestScope.pictures}" varStatus="pictures">
+                                <div class="div-pictures">
+                                    <a class="remove-picture btn btn-default" href="javascript:;"
+                                       path="${p.photo}">X</a>
+                                    <a href="/getpicture.img?photo=${p.photo}" target="_blank">
+                                        <img src="/getpicture.img?photo=${p.photo}">
+                                    </a>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -285,7 +261,7 @@
             <%--我的资金--%>
             <li><p>我的资金</p>
                 <div class="show-right">
-                    <h2>我的可用资金为: 0 元</h2>
+                    <h2>我的可用资金为:${requestScope.zone.money} 元</h2>
                     <a href="https://www.alipay.com/" target="_blank"
                        class="a-addmoney btn btn-success btn-lg">点击充值</a>
                 </div>
@@ -319,11 +295,11 @@
             $(".remove-picture").toggle();
         });
 
-        function showPhoto(){
+        function showPhoto() {
             $.ajax({
-                url:"/userpictures.do",
-                type:"post",
-                data:{"userid":${sessionScope.user.id}},
+                url: "/userpictures.do",
+                type: "post",
+                data: {"userid":${sessionScope.user.id}},
                 beforeSend: function () {
                     $("#div-show-photos").text("数据正在加载中....")
                 },
@@ -346,14 +322,22 @@
         $(".nav-left li").click(function () {
             $(".nav-left li").attr("class", "");
             $(this).attr("class", "addactive");
-        })
+        });
 
         $(".a-remove").click(function () {
             var borrowid = $(this).attr("borrowid");
             if (confirm("你确定要删除吗?")) {
-                window.location.href = "/delborrow.do?borrowid=" + borrowid;
+                window.location.href = "/user/delbuy.do?bookid=" + borrowid;
             }
         })
+
+        <c:if test="${param.photo == '1'}">
+        function addClass() {
+            $(".nav-left li").attr("class", "");
+            $("#li-show-photo").attr("class", "addactive");
+        };
+        addClass();
+        </c:if>
     })
 </script>
 </body>

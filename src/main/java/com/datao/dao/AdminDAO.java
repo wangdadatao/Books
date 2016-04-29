@@ -1,6 +1,6 @@
 package com.datao.dao;
 
-import com.datao.entity.Admin;
+import com.datao.pojo.Admin;
 import com.datao.util.DBhelper;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 

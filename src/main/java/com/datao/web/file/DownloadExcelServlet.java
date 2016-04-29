@@ -1,8 +1,8 @@
 package com.datao.web.file;
 
 import com.datao.dao.BuyDAO;
-import com.datao.entity.Book;
-import com.datao.entity.User;
+import com.datao.pojo.Book;
+import com.datao.pojo.User;
 import com.datao.web.BaseServlet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;

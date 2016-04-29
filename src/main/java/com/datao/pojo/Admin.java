@@ -1,4 +1,4 @@
-package com.datao.entity;
+package com.datao.pojo;
 
 /**
  * Created by 海涛 on 2016/3/16.

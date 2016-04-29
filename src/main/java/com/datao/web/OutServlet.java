@@ -1,13 +1,15 @@
 package com.datao.web;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
  * Created by 海涛 on 2016/3/18.
  */
-public class OutServlet extends HttpServlet {
+@WebServlet("/out.do")
+public class OutServlet extends BaseServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("我out运行了");
@@ -17,9 +19,9 @@ public class OutServlet extends HttpServlet {
         session.removeAttribute("user");
         //2:删除cookie
         Cookie[] cookies = request.getCookies();
-        if(cookies != null){
-            for(Cookie cookie: cookies){
-                if("username".equals(cookie.getName()) || "password".equals(cookie.getName())){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName()) || "password".equals(cookie.getName())) {
                     System.out.println("我删除了cookie");
                     Cookie cook = cookie;
                     cook.setHttpOnly(true);

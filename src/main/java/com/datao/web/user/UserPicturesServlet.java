@@ -17,7 +17,5 @@ public class UserPicturesServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userid = req.getParameter("userid");
-
-
     }
 }

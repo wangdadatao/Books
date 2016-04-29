@@ -1,7 +1,7 @@
 package com.datao.web;
 
 import com.datao.dao.AdminDAO;
-import com.datao.entity.Admin;
+import com.datao.pojo.Admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

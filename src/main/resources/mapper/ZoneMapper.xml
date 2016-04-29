@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.datao.mapper.ZoneMapper">
+    <select id="findBalance" parameterType="com.datao.pojo.User" resultType="com.datao.pojo.Zone">
+        SELECT * from ZONE WHERE id = #{id}
+    </select>
+
+    <update id="upZone" parameterType="com.datao.pojo.Zone" >
+        UPDATE ZONE
+        <set>
+            <if test="age != null">age = #{age},</if>
+            <if test="phonenum != null">phonenum = #{phonenum},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="petname != null">petname = #{petname},</if>
+            <if test="headimg != null">headimg = #{headimg},</if>
+            <if test="autograph != null">autograph = #{autograph},</if>
+            <if test="money != null">money = #{money}</if>
+        </set>
+    </update>
+</mapper>

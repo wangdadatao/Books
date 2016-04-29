@@ -11,9 +11,11 @@
 <head>
     <title>设置</title>
     <link rel="stylesheet" href="/Static/css/bootstrap.css">
+    <link rel="stylesheet" href="/Static/js/webuploader/webuploader.css">
     <script src="/Static/js/jquery-2.2.1.js"></script>
     <script src="/Static/js/bootstrap.min.js"></script>
     <script src="/Static/js/jquery.validate.js"></script>
+    <script src="/Static/js/webuploader/webuploader.min.js"></script>
 
     <style>
         .wrap-nav {
@@ -179,40 +181,8 @@
 
 </head>
 <body>
-<div class="wrap-nav navbar-fixed-top">
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="container-fluid">
-                <!-- 响应式布局-->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">图书馆</a>
-                </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/userhome.do?'">主页 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/userzone.do">个人中心</a></li>
-                        <li class="active"><a href="#">设置</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left navbar-right" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="搜索:作者/书名/出版社">
-                        </div>
-                        <button type="submit" class="btn btn-default">搜索</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<%@include file="public.jsp" %>
 
 <%--中间个人设置导航--%>
 <div class="container">
@@ -270,14 +240,14 @@
             <li><a href="#">头像设置</a>
                 <div class="show-set">
                     <div class="show-head">
-                        <img src="http://7xsaoe.com1.z0.glb.clouddn.com/" alt="头像">
+                        <img id="img-set-headimg"
+                             src="http://7xsaoe.com1.z0.glb.clouddn.com/${requestScope.zone.headimg}" alt="头像">
                     </div>
                     <div class="upload-img">
-                        <form id="form-upload" action="/upload.do?page=2" method="post" enctype="multipart/form-data">
-                            <p>请选择不大于100Kb的图片上传</p>
-                            <input id="input-uploadimg" type="file" name="touxiang">
-                            <a id="a-uploadimg" href="javascript:;" class="btn btn-success btn-lg">确定上传</a>
-                        </form>
+                        <div id="div-upload">
+                            <span id="choose" style="height:30px;">选择头像</span>
+                            <span class="hide" id="span-show-ifsuccess"></span>
+                        </div>
                     </div>
 
                 </div>
@@ -295,15 +265,15 @@
                                 </c:when>
                                 <a:when test="${requestScope.zone.email == null}">
                                     <h2>尚未验证邮箱</h2>
-                                    <form id="form-set-email">
+                                    <form action="/email.e" method="po" id="form-set-email">
                                         <input id="input-email" type="email" name="email" class="input-lg"
                                                placeholder="请输入邮箱:">
                                         <a id="get-email" class="btn btn-default " href="javascript:;">点击获取邮箱验证码</a>
                                         <br>
                                         <img id="img-email" Style="display: none;">
-                                        <input id="inputCapcha" class="input-lg" name="captcha" type="text"
+                                        <input id="inputCapcha" class="input-lg" name="emailcaptcha" type="text"
                                                placeholder="请输入验证码:"> <br>
-                                        <button class="btn btn-success btn-lg">确定绑定</button>
+                                        <button id="a-set-email" class="btn btn-success btn-lg">确定绑定</button>
                                     </form>
                                 </a:when>
                             </c:choose>
@@ -316,29 +286,32 @@
             <li><a href="#">修改密码</a>
                 <div class="show-set">
                     <div class="set-pwd ">
-                        <form class="form-horizontal">
+                        <form id="form-set-password" class="form-horizontal">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-3 control-label">当前密码:</label>
                                 <div class="col-sm-7">
-                                    <input type="password" class="form-control" id="inputEmail3" placeholder="请输入当前密码">
+                                    <input type="password" name="nowpassword" class="form-control" id="inputEmail3"
+                                           placeholder="请输入当前密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-3 control-label">新密码:</label>
                                 <div class="col-sm-7">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码">
+                                    <input type="password" name="newpassword" class="form-control" id="inputPassword3"
+                                           placeholder="请输入密码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4" class="col-sm-3 control-label">确认密码:</label>
                                 <div class="col-sm-7">
-                                    <input type="password" class="form-control" id="inputPassword4" placeholder="请输入密码">
+                                    <input type="password" name="repassword" class="form-control" id="inputPassword4"
+                                           placeholder="请输入密码">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-9">
-                                    <button type="submit" class="btn-lg btn-success">确定修改</button>
+                                    <a href="javascript:;" id="a-set-password" class="btn btn-success btn-lg">确定修改</a>
                                 </div>
                             </div>
                         </form>
@@ -387,11 +360,12 @@
 
 <script>
     $(function () {
+        //设置基本资料
         $("#btn-change-base").click(function () {
             $("#form-set").submit();
         });
 
-
+        //基本资料的简单验证
         $("#form-set").validate({
             errorClass: "text-error",
 //            errorElement: "span",
@@ -453,12 +427,100 @@
             }
         });
 
+        //长传头像
+        var imgUrl = "";  //储存上传到七牛的图片的地址
 
-        $("#a-uploadimg").click(function () {
-            if (document.getElementById("input-uploadimg").value.length > 0) {
-                $("#form-upload").submit();
+        var uploader = WebUploader.create({
+            swf: "/Staic/js/webuploder/Uploader.swf",
+            server: "http://upload.qiniu.com",
+            pick: "#choose",
+            fileVal: "file",
+            auto: true,
+            fileNumLimit: 1,
+
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,png,bmp',
+                mimeTypes: 'image/*'
+            },
+            formData: {"token": "${requestScope.token}"}
+        });
+
+        //文件上传成功时调用
+        uploader.on("uploadSuccess", function (file, response) {
+            uploader.removeFile(file); //单个文件上传成功后移除队列
+            imgUrls = response.key;
+
+            $.post("/user/settingheadimg.do", {"newheadimg": imgUrls}).done(function (json) {
+                if (json.status == "success") {
+                    var newImgurl = "http://7xsaoe.com1.z0.glb.clouddn.com/" + imgUrls;
+                    $("#img-set-headimg").attr("src", newImgurl);
+                } else {
+                    alert(json.errorMessage);
+                }
+            }).fail(function () {
+                alert(response.errorMessage);
+            })
+        });
+
+        //文件上传失败时触发
+        uploader.on("uploadError", function (file, response) {
+            alert("文件上传失败,亲稍后再试!")
+        });
+
+        //开始上传
+        $("#begin").click(function () {
+            uploader.upload();
+        })
+
+        //设置密码
+        $("#form-set-password").validate({
+            errorClass: "text-error",
+            errorElement: "span",
+            rules: {
+                nowpassword: {
+                    required: true
+                },
+                newpassword: {
+                    required: true,
+                    rangelength: [3, 15]
+                },
+                repassword: {
+                    required: true,
+                    equalTo: "#inputPassword3"
+                }
+            },
+            messages: {
+                nowpassword: {
+                    required: "请输入当前密码"
+                },
+                newpassword: {
+                    required: "请输入新密码",
+                    rangelength: "密码长度3~15位"
+                },
+                repassword: {
+                    required: "请再次输入新密码",
+                    equalTo: "两次输入密码不相同"
+                }
+            },
+            submitHandler: function (form) {
+                $.post("/user/setpassword.do", $(form).serialize()).done(function (result) {
+                    if (result.status == "error") {
+                        alert("密码修改失败:" + result.errorMessage)
+                    } else {
+                        window.location.href = "/out.do";
+                    }
+                }).fail(function () {
+                    alert("服务器异常,请稍后再试!")
+                });
             }
         });
+
+        $("#a-set-password").click(function () {
+            $("#form-set-password").submit();
+        });
+
+
 
         $(".set-nav li").click(function () {
             $(".set-nav li").css("border-left", "none");

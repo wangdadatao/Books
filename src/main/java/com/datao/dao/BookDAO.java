@@ -1,7 +1,8 @@
 package com.datao.dao;
 
-import com.datao.entity.Book;
+import com.datao.pojo.Book;
 import com.datao.util.DBhelper;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -43,9 +44,9 @@ public class BookDAO {
     }
 
     //根据id查找书籍
-    public List<Book> findById(Integer id) {
+    public Book findById(Integer id) {
         String sql = "select * from book where id=?";
-        return DBhelper.query(sql, new BeanListHandler<Book>(Book.class), id);
+        return DBhelper.query(sql, new BeanHandler<Book>(Book.class), id);
     }
 
     //产看书籍的数目

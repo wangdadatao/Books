@@ -1,7 +1,7 @@
 package com.datao.web;
 
 import com.datao.dao.UserDAO;
-import com.datao.entity.User;
+import com.datao.pojo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

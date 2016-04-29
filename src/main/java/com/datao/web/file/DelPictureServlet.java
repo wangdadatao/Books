@@ -1,8 +1,8 @@
 package com.datao.web.file;
 
 import com.datao.dao.PictureDAO;
-import com.datao.entity.Picture;
-import com.datao.entity.User;
+import com.datao.pojo.Picture;
+import com.datao.pojo.User;
 import com.datao.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -25,9 +25,17 @@ public class DelPictureServlet extends BaseServlet {
         User user = (User) request.getSession().getAttribute("user");
         String path = request.getParameter("photo");
 
+        System.out.println("要删除的图片是：" + path);
+
         if (path != null) {
             Picture picture = new PictureDAO().findByPhoto(path);
-            if (user.getId().equals(picture.getStuid())) {
+
+            System.out.println("要删除的图片对像是：" + picture);
+
+            if (user.getId().equals(picture.getUserid())) {
+
+                System.out.println("相等，可以删除！");
+
                 new PictureDAO().delPicture(path);
 
                 File photo = new File("h:/upload", path);
@@ -37,7 +45,7 @@ public class DelPictureServlet extends BaseServlet {
             }
         }
 
-        response.sendRedirect("/zone.do");
+        response.sendRedirect("/userzone.do?photo=1");
 
     }
 }

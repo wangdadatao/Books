@@ -170,40 +170,7 @@
 </head>
 <body>
 <%--导航--%>
-<div class="wrap-nav ">
-    <nav class="navbar  navbar-inverse">
-        <div class="container">
-            <div class="container-fluid">
-                <!-- 响应式布局-->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">图书馆</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">主页 <span class="sr-only">(current)</span></a></li>
-                        <li><a id="a-zone" href="/userzone.do">个人中心</a></li>
-                        <li><a href="/userset.do">设置</a></li>
-                    </ul>
-                    <form action="/userhome.do" method="post" class="navbar-form navbar-left navbar-right" role="search">
-                        <div class="form-group">
-                            <input name="key" type="text" class="form-control" placeholder="搜索:作者/书名/出版社">
-                        </div>
-                        <button type="submit" class="btn btn-default">搜索</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<%@include file="public.jsp"%>
 
 <%--书籍展示--%>
 <div class="container book-list">
@@ -262,9 +229,10 @@
             <%--<th>移除</th>--%>
         </tr>
     </table>
-    <form action="/buybook.do" method="post">
+    <form action="/user/buybooks.do" method="post">
         <input id="input-ids" type="hidden" name="ids">
-        <button class="btn btn-success">确认购买</button>
+        <input id="input-price" type="hidden" name="price">
+        <button type="btn-buy-submit" class="btn btn-success">确认购买</button>
         <a class="a-close btn btn-default " href="javascript:;">关闭</a>
     </form>
 </div>
@@ -297,7 +265,8 @@
         $(".backpack").animate({
             right: "-300px",
         }, 600);
-    })
+    });
+
     var oIds = document.getElementById("input-ids");
     $(".a-add").click(function () {
         this.className += " disabled";

@@ -1,8 +1,9 @@
 package com.datao.web.user;
 
 import com.datao.dao.ZoneDAO;
-import com.datao.entity.User;
-import com.datao.entity.Zone;
+import com.datao.pojo.User;
+import com.datao.pojo.Zone;
+import com.datao.service.UserService;
 import com.datao.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by 海涛 on 2016/3/22.
@@ -50,10 +52,10 @@ public class SetServlet extends BaseServlet {
 
                 goSet(request, response);
 
-            }else if(setId.equals("2")){
+            } else if (setId.equals("2")) {
                 String userid = request.getParameter("userid");
                 String email = request.getParameter("email");
-                if(email != null){
+                if (email != null) {
                     Zone zone = new Zone();
                     zone.setEmail(email);
                     zone.setUserid(Integer.valueOf(userid));
@@ -61,7 +63,7 @@ public class SetServlet extends BaseServlet {
                     ZoneDAO zonedao = new ZoneDAO();
                     zonedao.upEmail(zone);
 
-                    goSet(request,response);
+                    goSet(request, response);
                 }
             }
         }
@@ -69,13 +71,21 @@ public class SetServlet extends BaseServlet {
 
 
     private void goSet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
 
-        Zone zone = new ZoneDAO().findById(user.getId());
+        UserService userService = new UserService();
 
-        request.setAttribute("zone",zone);
+        User user = getUser(request);
+        if (user == null) {
+            response.sendError(404, "你要访问的页面不存在!");
+        }
 
+        Zone zone = userService.getZone(user);
+        String token = userService.getToken();
+        String key = UUID.randomUUID().toString();
+
+        request.setAttribute("key", key);
+        request.setAttribute("token", token);
+        request.setAttribute("zone", zone);
         request.getRequestDispatcher("/WEB-INF/views/set.jsp").forward(request, response);
 
     }

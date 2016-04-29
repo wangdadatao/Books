@@ -1,9 +1,8 @@
 package com.datao.web.user.validate;
 
-import com.datao.entity.User;
+import com.datao.pojo.User;
 import com.datao.service.UserService;
 import com.datao.web.BaseServlet;
-import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created by 海涛 on 2016/4/16.

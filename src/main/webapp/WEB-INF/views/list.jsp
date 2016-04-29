@@ -1,5 +1,5 @@
 <%@page import="java.util.List" %>
-<%@ page import="com.datao.entity.Book" %>
+<%@ page import="com.datao.pojo.Book" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,9 +13,8 @@
 
     <style type="text/css">
         body {
-            overflow: hidden;
+            overflow-x: hidden;
             background-image: url("/Static/img/listbg.jpg");
-            -webkit-background-size:;
             background-size:100% auto;
             background-color: #e9dbce;
             height: 100%;
@@ -187,14 +186,14 @@
     $(".a-del").click(function () {
         $(".delBook").toggle();
         $(".upBook").hide();
-    })
+    });
     $(".a-up").click(function () {
         $(".upBook").toggle();
         $(".delBook").hide();
-    })
+    });
     $(".a-add").click(function () {
         $(".addBook").toggle();
-    })
+    });
     $(".delBook>a").click(function () {
         var id = $(this).attr("data-id");
         if (confirm("你确定要删除吗?")) {
@@ -216,7 +215,7 @@
 
         $(".up-div").animate({
             right: 0
-        })
+        });
 
         containerMove();
     });

@@ -3,7 +3,7 @@ package com.datao.web;
 import javax.servlet.http.HttpServlet;
 
 import com.google.gson.Gson;
-import com.datao.entity.User;
+import com.datao.pojo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

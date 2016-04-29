@@ -1,7 +1,7 @@
 package com.datao.service;
 
 import com.datao.dao.BookDAO;
-import com.datao.entity.Book;
+import com.datao.pojo.Book;
 import com.datao.util.Page;
 
 import java.util.List;
@@ -13,6 +13,7 @@ public class BookService {
 
     private BookDAO bookDao = new BookDAO();
 
+    //展示书籍  分页产看
     public Page<Book> showIndexTopic(String pageNo) {
         int pageSize = 20;
 
@@ -22,5 +23,10 @@ public class BookService {
 
         page.setItems(books);
         return page;
+    }
+
+    //根据书籍iD查找书籍
+    public Book findBookByid(String bookId) {
+       return bookDao.findById(Integer.valueOf(bookId));
     }
 }

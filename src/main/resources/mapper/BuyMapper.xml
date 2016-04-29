@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.datao.mapper.BuyMapper">
+    <select id="findByUserIdandBookId" resultType="com.datao.pojo.Buy">
+        SELECT * from buy where userid = #{param1} and bookid=#{param2}
+    </select>
+
+    <delete id="delBuyByBuy" parameterType="com.datao.pojo.Buy">
+        DELETE FROM buy where userid = #{userid} and bookid=#{bookid}
+    </delete>
+</mapper>

@@ -1,6 +1,6 @@
 package com.datao.dao;
 
-import com.datao.entity.Picture;
+import com.datao.pojo.Picture;
 import com.datao.util.DBhelper;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -26,7 +26,7 @@ public class PictureDAO {
     //添加图片
     public void addPicture(Picture p) {
         String sql = "insert into pictures(userid,photo) values(?,?)";
-        DBhelper.updater(sql, p.getStuid(), p.getPhoto());
+        DBhelper.updater(sql, p.getUserid(), p.getPhoto());
     }
 
     //删除图片

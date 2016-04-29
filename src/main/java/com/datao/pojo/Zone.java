@@ -1,4 +1,4 @@
-package com.datao.entity;
+package com.datao.pojo;
 
 /**
  * Created by 海涛 on 2016/3/21.
@@ -12,6 +12,24 @@ public class Zone {
     private String email;
     private String sex;
     private String headimg;
+    private String money;
+    private String autograph;
+
+    public String getAutograph() {
+        return autograph;
+    }
+
+    public void setAutograph(String autograph) {
+        this.autograph = autograph;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
 
     public Integer getId() {
         return id;

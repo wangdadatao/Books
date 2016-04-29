@@ -1,9 +1,10 @@
-package com.datao.entity;
+package com.datao.pojo;
 
 /**
- * Created by 海涛 on 2016/3/23.
+ * Created by 海涛 on 2016/4/18.
+ * 正在读
  */
-public class Buy {
+public class Reading {
     private Integer id;
     private Integer userid;
     private Integer bookid;
@@ -16,11 +17,11 @@ public class Buy {
         this.id = id;
     }
 
-    public Integer getStuid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setStuid(Integer userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 
@@ -32,3 +33,4 @@ public class Buy {
         this.bookid = bookid;
     }
 }
+

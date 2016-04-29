@@ -1,7 +1,7 @@
 package com.datao.web;
 
 import com.datao.dao.BookDAO;
-import com.datao.entity.Book;
+import com.datao.pojo.Book;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

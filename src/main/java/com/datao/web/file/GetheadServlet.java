@@ -1,8 +1,8 @@
 package com.datao.web.file;
 
 import com.datao.dao.ZoneDAO;
-import com.datao.entity.User;
-import com.datao.entity.Zone;
+import com.datao.pojo.User;
+import com.datao.pojo.Zone;
 import com.datao.web.BaseServlet;
 import org.apache.commons.io.IOUtils;
 

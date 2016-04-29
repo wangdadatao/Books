@@ -1,4 +1,4 @@
-package com.datao.entity;
+package com.datao.pojo;
 
 /**
  * Created by 海涛 on 2016/3/26.
@@ -16,11 +16,11 @@ public class Picture {
         this.id = id;
     }
 
-    public Integer getStuid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setStuid(Integer userid) {
+    public void setUserid(Integer userid) {
         this.userid = userid;
     }
 

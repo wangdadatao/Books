@@ -1,7 +1,5 @@
 package com.datao.web.user;
 
-import com.datao.dao.UserDAO;
-import com.datao.entity.User;
 import com.datao.error.DataAccessException;
 import com.datao.service.UserService;
 import com.datao.web.BaseServlet;

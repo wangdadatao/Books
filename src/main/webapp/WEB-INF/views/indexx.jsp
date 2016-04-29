@@ -98,8 +98,8 @@
 <div class="login">
     <div class="logo">Books</div>
     <ul class="nav nav-tabs" role="tablist" id="tab-list">
-        <li class="active"><a href="#tab-userdenglu" role="tab" data-toggle="tab">学生登录</a></li>
-        <li><a href="#tab-zhuce" role="tab" data-toggle="tab">学生注册</a></li>
+        <li class="active"><a href="#tab-userdenglu" role="tab" data-toggle="tab">登录</a></li>
+        <li><a href="#tab-zhuce" role="tab" data-toggle="tab">注册</a></li>
         <li><a href="#tab-admin" role="tab" data-toggle="tab">管理员登录</a></li>
     </ul>
     <div class="tab-content">
@@ -107,7 +107,8 @@
         <div class="tab-pane active" id="tab-userdenglu">
             <div class="row feature">
                 <form id="userform" class="form-signin" action="/userlog.do" method="post">
-                    <input type="text" id="inputEmail" name="username" class="form-control" placeholder="请输入用户名"
+                    <input type="text" id="inputEmail" name="username" class="form-control"
+                           placeholder="请输入用户名"
                            autofocus>
                     <input type="password" name="password" class="form-control" placeholder="请输入密码">
                     <div class="checkbox">
@@ -139,7 +140,7 @@
                                 href="#">同意注册协议 </a>
                         </label>
                     </div>
-                    <button disabled="true" id="btn-reg" class="btn btn-lg btn-primary btn-block ">
+                    <button type="button" disabled="true" id="btn-reg" class="btn btn-lg btn-primary btn-block ">
                         提交注册
                     </button>
                 </form>

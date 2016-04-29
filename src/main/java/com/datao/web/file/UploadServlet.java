@@ -2,15 +2,17 @@ package com.datao.web.file;
 
 import com.datao.dao.PictureDAO;
 import com.datao.dao.ZoneDAO;
-import com.datao.entity.Picture;
-import com.datao.entity.User;
-import com.datao.entity.Zone;
+import com.datao.pojo.Picture;
+import com.datao.pojo.User;
+import com.datao.pojo.Zone;
+import com.datao.web.BaseServlet;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +26,10 @@ import java.util.UUID;
 
 /**
  * Created by 海涛 on 2016/3/24.
+ * 上传图片
  */
-public class UploadServlet extends HttpServlet {
+@WebServlet("/upload.do")
+public class UploadServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String page = request.getParameter("page");
@@ -40,15 +44,16 @@ public class UploadServlet extends HttpServlet {
 
             Picture picture = new Picture();
             if (path != null) {
-                picture.setStuid(user.getId());
+                picture.setUserid(user.getId());
                 picture.setPhoto(path);
 
                 new PictureDAO().addPicture(picture);
             } else {
-                response.sendError(500);
+//                response.sendError(500);
+                response.sendRedirect("/userzone.do?photo=1");
             }
 
-            response.sendRedirect("/zone.do");
+            response.sendRedirect("/userzone.do?photo=1");
 
         } else if ("2".equals(page)) {
             //上传头像前,先把以前的头像给删除了
